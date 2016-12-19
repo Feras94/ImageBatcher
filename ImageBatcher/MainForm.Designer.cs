@@ -188,6 +188,7 @@
             // 
             // inputFileDialoge
             // 
+            this.inputFileDialoge.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.tiff";
             this.inputFileDialoge.Multiselect = true;
             this.inputFileDialoge.Title = "Choose Files";
             // 
