@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.Label label5;
             this.txtInput = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
@@ -45,6 +46,7 @@
             this.comboImageType = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtLog = new System.Windows.Forms.TextBox();
+            label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtInput
@@ -55,7 +57,7 @@
             this.txtInput.Margin = new System.Windows.Forms.Padding(4);
             this.txtInput.Name = "txtInput";
             this.txtInput.ReadOnly = true;
-            this.txtInput.Size = new System.Drawing.Size(444, 27);
+            this.txtInput.Size = new System.Drawing.Size(544, 27);
             this.txtInput.TabIndex = 0;
             // 
             // label1
@@ -75,13 +77,13 @@
             this.progressBar.Location = new System.Drawing.Point(13, 209);
             this.progressBar.Margin = new System.Windows.Forms.Padding(4);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(418, 34);
+            this.progressBar.Size = new System.Drawing.Size(518, 34);
             this.progressBar.TabIndex = 2;
             // 
             // btnStart
             // 
             this.btnStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnStart.Location = new System.Drawing.Point(559, 209);
+            this.btnStart.Location = new System.Drawing.Point(659, 209);
             this.btnStart.Margin = new System.Windows.Forms.Padding(4);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(112, 34);
@@ -94,7 +96,7 @@
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.Enabled = false;
-            this.btnCancel.Location = new System.Drawing.Point(439, 209);
+            this.btnCancel.Location = new System.Drawing.Point(539, 209);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(112, 34);
@@ -120,7 +122,7 @@
             this.txtOutput.Location = new System.Drawing.Point(138, 56);
             this.txtOutput.Margin = new System.Windows.Forms.Padding(4);
             this.txtOutput.Name = "txtOutput";
-            this.txtOutput.Size = new System.Drawing.Size(444, 27);
+            this.txtOutput.Size = new System.Drawing.Size(544, 27);
             this.txtOutput.TabIndex = 5;
             // 
             // label3
@@ -140,16 +142,16 @@
             this.txtMaxSize.Location = new System.Drawing.Point(138, 94);
             this.txtMaxSize.Margin = new System.Windows.Forms.Padding(4);
             this.txtMaxSize.Name = "txtMaxSize";
-            this.txtMaxSize.Size = new System.Drawing.Size(399, 27);
+            this.txtMaxSize.Size = new System.Drawing.Size(485, 27);
             this.txtMaxSize.TabIndex = 7;
-            this.txtMaxSize.Text = "50";
+            this.txtMaxSize.Text = "128";
             this.txtMaxSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnBrowseInput
             // 
             this.btnBrowseInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseInput.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.btnBrowseInput.Location = new System.Drawing.Point(590, 18);
+            this.btnBrowseInput.Location = new System.Drawing.Point(690, 18);
             this.btnBrowseInput.Margin = new System.Windows.Forms.Padding(4);
             this.btnBrowseInput.Name = "btnBrowseInput";
             this.btnBrowseInput.Size = new System.Drawing.Size(81, 27);
@@ -162,7 +164,7 @@
             // 
             this.btnBrowseOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnBrowseOutput.Font = new System.Drawing.Font("Tahoma", 10F);
-            this.btnBrowseOutput.Location = new System.Drawing.Point(590, 56);
+            this.btnBrowseOutput.Location = new System.Drawing.Point(690, 56);
             this.btnBrowseOutput.Margin = new System.Windows.Forms.Padding(4);
             this.btnBrowseOutput.Name = "btnBrowseOutput";
             this.btnBrowseOutput.Size = new System.Drawing.Size(81, 27);
@@ -175,15 +177,14 @@
             // 
             this.comboSizeType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboSizeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboSizeType.Font = new System.Drawing.Font("Tahoma", 10F);
             this.comboSizeType.FormattingEnabled = true;
             this.comboSizeType.Items.AddRange(new object[] {
-            "MegaBytes (MB)",
-            "KiloBytes (KB)",
-            "Bytes (B)"});
-            this.comboSizeType.Location = new System.Drawing.Point(544, 97);
+            "Mega (MB)",
+            "Kilo (KB)",
+            "Byte (B)"});
+            this.comboSizeType.Location = new System.Drawing.Point(630, 94);
             this.comboSizeType.Name = "comboSizeType";
-            this.comboSizeType.Size = new System.Drawing.Size(127, 24);
+            this.comboSizeType.Size = new System.Drawing.Size(141, 27);
             this.comboSizeType.TabIndex = 14;
             // 
             // inputFileDialoge
@@ -203,7 +204,7 @@
             "JPEG"});
             this.comboImageType.Location = new System.Drawing.Point(138, 128);
             this.comboImageType.Name = "comboImageType";
-            this.comboImageType.Size = new System.Drawing.Size(399, 27);
+            this.comboImageType.Size = new System.Drawing.Size(485, 27);
             this.comboImageType.TabIndex = 15;
             // 
             // label4
@@ -225,17 +226,30 @@
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
-            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(658, 227);
+            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtLog.Size = new System.Drawing.Size(758, 184);
             this.txtLog.TabIndex = 17;
             this.txtLog.WordWrap = false;
+            // 
+            // label5
+            // 
+            label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            label5.AutoSize = true;
+            label5.Font = new System.Drawing.Font("Tahoma", 8F);
+            label5.ForeColor = System.Drawing.SystemColors.GrayText;
+            label5.Location = new System.Drawing.Point(12, 439);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(180, 13);
+            label5.TabIndex = 18;
+            label5.Text = "Image Optimization By Feras Dawod";
             // 
             // MainForm
             // 
             this.AcceptButton = this.btnStart;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 491);
+            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(label5);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.comboImageType);

@@ -92,7 +92,14 @@ namespace ImageBatcher
             var proccessImageBlock = new ActionBlock<string>((path) =>
             {
                 ProccessImage(path);
-                _context.Send((_) => { progressBar.Value++; }, null);
+
+                _context.Send((_) =>
+                {
+                    progressBar.Value++;
+
+                }, null);
+
+                GC.Collect();
 
             }, new ExecutionDataflowBlockOptions
             {
@@ -103,16 +110,20 @@ namespace ImageBatcher
             btnStart.Enabled = false;
             btnCancel.Enabled = true;
 
-            // submitting images paths for processing
-            foreach (var path in _imagesPathsList)
-                proccessImageBlock.Post(path);
+            Parallel.ForEach(_imagesPathsList, (path) => { proccessImageBlock.Post(path); });
 
             // finish submitting and wait for completion
             proccessImageBlock.Complete();
-            await proccessImageBlock.Completion.ContinueWith(task => _context.Send((_) => LogMessage("Done"), null));
+            await proccessImageBlock.Completion.ContinueWith(task =>
+            {
+                _context.Send((_) =>
+                {
+                    LogMessage("Done");
+                    btnStart.Enabled = true;
+                    btnCancel.Enabled = false;
 
-            btnStart.Enabled = true;
-            btnCancel.Enabled = false;
+                }, null);
+            });
         }
 
         private void ProccessImage(string path)
@@ -127,17 +138,13 @@ namespace ImageBatcher
 
             while (true)
             {
-                _context.Send((_) => { LogMessage($"Processing Image {imageName}, iteration #{iteration}"); }, null);
-
                 if (_cancellationTokenSource.IsCancellationRequested)
                     return;
 
                 using (var memoryStream = new MemoryStream())
                 {
-                    if (_operationParameters.ImageType == ImageType.Png)
-                        img.Save(memoryStream, ImageFormat.Png);
-                    else
-                        img.Save(memoryStream, ImageFormat.Jpeg);
+                    img.Save(memoryStream,
+                        _operationParameters.ImageType == ImageType.Png ? ImageFormat.Png : ImageFormat.Jpeg);
 
                     var size = memoryStream.Length;
                     if (ReachedTargetSize(size))
@@ -147,7 +154,7 @@ namespace ImageBatcher
                             ? $"{savePath}.png"
                             : $"{savePath}.jpg";
 
-                        _context.Send((_) => { LogMessage($"Saving Image {imageName}"); }, null);
+                        _context.Post((itr) => { LogMessage($"Saving image {imageName} after {itr} iterations"); }, iteration);
                         File.WriteAllBytes(fileName, memoryStream.GetBuffer());
 
                         break;
@@ -158,12 +165,14 @@ namespace ImageBatcher
                 var newHeight = Math.Ceiling(img.Height * 0.75);
 
                 var newImg = new Bitmap((int)newWidth, (int)newHeight);
-                var graphics = Graphics.FromImage(newImg);
-
-                graphics.DrawImage(img, new RectangleF(0.0f, 0.0f, (float)newWidth, (float)newHeight));
+                using (var graphics = Graphics.FromImage(newImg))
+                {
+                    graphics.DrawImage(img, new RectangleF(0.0f, 0.0f, (float)newWidth, (float)newHeight));
+                }
 
                 img.Dispose();
                 img = newImg;
+                iteration++;
             }
         }
 
@@ -177,12 +186,12 @@ namespace ImageBatcher
         {
             if (_operationParameters.MaxSizeType == SizeType.Bytes)
                 return size;
-            else if (_operationParameters.MaxSizeType == SizeType.Kilobytes)
+            if (_operationParameters.MaxSizeType == SizeType.Kilobytes)
                 return size / 1024;
-            else if (_operationParameters.MaxSizeType == SizeType.Megabytes)
+            if (_operationParameters.MaxSizeType == SizeType.Megabytes)
                 return size / 1024 / 1024;
-            else
-                throw new NotImplementedException();
+
+            throw new NotImplementedException();
         }
 
         private void btnBrowseOutput_Click(object sender, EventArgs e)
