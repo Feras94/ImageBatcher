@@ -42,7 +42,6 @@ namespace ImageBatcher
 
         private async void btnStart_Click(object sender, EventArgs e)
         {
-            // clearing the log window
             txtLog.Clear();
 
             if (_imagesPathsList == null)
@@ -74,6 +73,8 @@ namespace ImageBatcher
                                 comboSizeType.SelectedIndex == 1 ? SizeType.Kilobytes : SizeType.Bytes,
                 ImageType = comboImageType.SelectedIndex == 0 ? ImageType.Png : ImageType.Jpg,
             };
+
+            DumpStartingInfo(_operationParameters);
 
             if (!Directory.Exists(_operationParameters.OutputPath))
                 Directory.CreateDirectory(_operationParameters.OutputPath);
@@ -124,6 +125,17 @@ namespace ImageBatcher
 
                 }, null);
             });
+        }
+
+        private void DumpStartingInfo(OperationParameters operationParameters)
+        {
+            var strBuilder = new StringBuilder();
+            strBuilder.AppendLine("Starting Operation:");
+            strBuilder.AppendLine($"\tNumber Of Files: {operationParameters.ImagesPathsList.Count}");
+            strBuilder.AppendLine($"\tOutput Path: {operationParameters.OutputPath}");
+            strBuilder.AppendLine($"\tMax Size: {operationParameters.MaxSize} {operationParameters.MaxSizeType.ToString()}");
+
+            LogMessage(strBuilder.ToString());
         }
 
         private void ProccessImage(string path)
